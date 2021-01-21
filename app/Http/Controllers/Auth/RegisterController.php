@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -68,5 +69,22 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $user = $this->create($request->all());
+        $this->guard()->login($user);
+
+        return $this->registered($request,$user)?: redirect($this->redirectPath());
+    }
+
+    public function registered(Request $request, $user)
+    {
+        $user->api_token = Str::random(60);
+        $user->save();
+
+        return response()->json(['user'=> $user->toArray()],201);
     }
 }
