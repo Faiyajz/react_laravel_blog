@@ -48,7 +48,7 @@ class LoginController extends Controller
 
             $user = $this->guard()->user();
             $api_token = Str::random(60);
-            $user->api_login = $api_token;
+            $user->api_token = $api_token;
             $user->save();
 
             return response()->json([
