@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+// Frontend
+Route::get('/{path?}', function () {
+    return view('frontend.home');
+})->where('path', '[^admin]*');
+
+// Backend
+Route::get('/admin/{path?}', function () {
+    return view('backend.dashboard');
+})->where('path', '.*');
