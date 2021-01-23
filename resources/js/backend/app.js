@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from "./components/partials/Header";
 import Sidebar from "./components/partials/Sidebar";
 import Footer from "./components/partials/Footer";
+import Routes from "./Routes";
 
 export default class App extends Component {
     render() {
@@ -14,6 +15,8 @@ export default class App extends Component {
                 <div className="content-wrapper">
 
                 </div>
+
+                <Routes/>
 
                 <Footer/>
             </div>
